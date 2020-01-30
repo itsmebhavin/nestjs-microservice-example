@@ -5,7 +5,7 @@ FROM node:13-alpine AS base
 
 RUN apk add --no-cache tini
 
-ENV appdir /server
+ENV appdir /server/
 RUN mkdir -p ${appdir}
 WORKDIR ${appdir}
 COPY package*.json ${appdir}

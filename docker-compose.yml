@@ -1,0 +1,35 @@
+version: "3.6"
+services:
+  magazineapi:
+    image: nest-microservice/magazine-microservice:latest
+    container_name: magazine-microservice
+    environment:
+      - REDIS_HOST=redis
+    ports:
+      - "3100:3000"
+    depends_on:
+      - redis
+
+  bookapi:
+    image: nest-microservice/book-microservice:latest
+    container_name: book-microservice
+    environment:
+      - REDIS_HOST=redis
+    ports:
+      - "3200:3000"
+    depends_on:
+      - redis
+  redis:
+    image: redis:latest
+    container_name: some-redis
+    restart: always
+    labels:
+      kompose.service.type: nodeport
+    ports:
+      - "6379:6379"
+    volumes:
+      - "redis_data:/bitnami/redis"
+
+volumes:
+  redis_data:
+    driver: local
