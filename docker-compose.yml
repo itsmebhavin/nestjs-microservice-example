@@ -6,11 +6,12 @@ services:
       context: ./magazines-service/
     environment:
       - REDIS_HOST=redis
-    network_mode: host
     ports:
       - "3100:3000"
     depends_on:
       - redis
+    networks:
+      - redis-net
 
   book-microservice:
     container_name: book-microservice
@@ -18,27 +19,34 @@ services:
       context: ./books-service/
     environment:
       - REDIS_HOST=redis
-    network_mode: host
     ports:
       - "3200:3000"
     depends_on:
       - redis
+    networks:
+      - redis-net
 
   redis:
     image: redis:latest
     container_name: microservice-redis
     restart: always
+    environment:
+      # ALLOW_EMPTY_PASSWORD is recommended only for development.
+      - ALLOW_EMPTY_PASSWORD=yes
+      - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
     labels:
       kompose.service.type: nodeport
-    command: redis-server /usr/local/etc/redis/redis.conf
+    command: ["redis-server", "--bind", "redis", "--port", "6379"]
     volumes:
       - redis_data:/usr/local/etc/redis/redis.conf
-    networks:
-      - redis-net
     ports:
       - "6379:6379"
+    networks:
+      - redis-net
+
 networks:
   redis-net:
+
 volumes:
   redis_data:
     driver: local
