@@ -1,4 +1,4 @@
-version: "3"
+version: '3'
 services:
   magazine-microservice:
     container_name: magazine-microservice
@@ -7,12 +7,11 @@ services:
     environment:
       - REDIS_HOST=redis
     ports:
-      - "3100:3000"
+      - '3100:3000'
     depends_on:
       - redis
     networks:
       - redis-net
-
   book-microservice:
     container_name: book-microservice
     build:
@@ -20,33 +19,34 @@ services:
     environment:
       - REDIS_HOST=redis
     ports:
-      - "3200:3000"
+      - '3200:3000'
     depends_on:
       - redis
     networks:
       - redis-net
-
   redis:
-    image: redis:latest
+    image: 'redis:latest'
     container_name: microservice-redis
     restart: always
     environment:
-      # ALLOW_EMPTY_PASSWORD is recommended only for development.
       - ALLOW_EMPTY_PASSWORD=yes
-      - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
+      - 'REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL'
     labels:
       kompose.service.type: nodeport
-    command: ["redis-server", "--bind", "redis", "--port", "6379"]
+    command:
+      - redis-server
+      - '--bind'
+      - redis
+      - '--port'
+      - '6379'
     volumes:
-      - redis_data:/usr/local/etc/redis/redis.conf
+      - 'redis_data:/usr/local/etc/redis/redis.conf'
     ports:
-      - "6379:6379"
+      - '6379:6379'
     networks:
       - redis-net
-
 networks:
-  redis-net:
-
+  redis-net: null
 volumes:
   redis_data:
     driver: local
