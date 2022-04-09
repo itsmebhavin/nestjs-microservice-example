@@ -2,6 +2,9 @@
 
 Example code for nestjs microservice using REDIS
 
+## Looking for Microservices using gRPC? 
+*** https://github.com/itsmebhavin/nestjs-microservices-gRPC-example
+
 ## Description
 
 We are creating microservices using nestjs [nestjs.com] and REDIS. We have following components in our solution -
