@@ -2,7 +2,7 @@
 
 Example code for nestjs microservice using REDIS
 
-## Looking for Microservices using gRPC? 
+## Looking for Microservices using gRPC? (New 2022 solution using microservices written in nest.js and asp.net core using gRPC. Also has gateway api written in nest.js)
 *** https://github.com/itsmebhavin/nestjs-microservices-gRPC-example
 
 ## Description
