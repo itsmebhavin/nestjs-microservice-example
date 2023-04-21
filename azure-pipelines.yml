@@ -10,10 +10,17 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
 
+- checkout: self
+  persistCredentials: true
 - script: |
     echo Add other tasks to build, test, and deploy your project.
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
+- script: |
+    git checkout -b $(Build.BuildId)
+    git add .
+    git commit -m "Automated PR from Azure Pipelines"
+    git push -u origin $(Build.BuildId)
+    curl -H "Authorization: token $(githubAccessToken)" -X POST -d "{\"title\":\"Automated PR from Azure Pipelines\", \"body\":\"Please review and merge this PR\",\"head\":\"$(Build.BuildId)\",\"base\":\"$(githubTargetBranch)\"}" "https://api.github.com/repos/$(githubRepo)/pulls"
+  displayName: 'Create PR on Github'
