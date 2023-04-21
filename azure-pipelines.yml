@@ -18,8 +18,8 @@ steps:
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
 - script: |
-    git config --global user.email "bhavin.ibm@gmail.com"
-    git config --global user.name "itsmebhavin"
+    git config --global user.email $(GITHUBUSEREMAIL)
+    git config --global user.name $(GITHUBUSERNAME)
     git checkout -b $(Build.BuildId)
     git add .
     git commit -m "Automated PR from Azure Pipelines"
