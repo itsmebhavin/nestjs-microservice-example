@@ -25,7 +25,8 @@ export class BooksController {
     this.client = ClientProxyFactory.create({
       transport: Transport.REDIS,
       options: {
-        url: 'redis://localhost:6379',
+        host: 'localhost',
+        port: 6379,
       },
     });
   }

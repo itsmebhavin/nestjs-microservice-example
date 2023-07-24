@@ -10,7 +10,8 @@ const microserviceOptions = {
   name: 'MAGAZINE_SERVICE',
   transport: Transport.REDIS,
   options: {
-    url: 'redis://redis:6379',
+    host: 'localhost',
+    port: 6379,
   },
 };
 async function bootstrap() {
@@ -18,8 +19,6 @@ async function bootstrap() {
     AppModule,
     microserviceOptions,
   );
-  app.listen(() => {
-    logger.log('Magazine microservice is listening ... ');
-  });
+  app.listen();
 }
 bootstrap();
