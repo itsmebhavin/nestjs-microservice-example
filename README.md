@@ -49,7 +49,8 @@ const microserviceOptions = {
   name: 'BOOK_SERVICE',
   transport: Transport.REDIS,
   options: {
-    url: 'redis://localhost:6379',
+    host: 'localhost',
+    port: 6379,
   },
 };
 async function bootstrap() {
@@ -109,7 +110,8 @@ books.controller.ts
     this.client = ClientProxyFactory.create({
       transport: Transport.REDIS,
       options: {
-        url: 'redis://localhost:6379',
+        host: 'localhost',
+        port: 6379,
       },
     });
   }
